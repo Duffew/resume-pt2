@@ -225,6 +225,17 @@
     <script>
         var APIKey = "AIzaSyD0stwMvcrvO_V5kn7a-Mpkbfec3dOl-HE";
     </script> -->
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 3,
+                center: {
+                    lat: 46.619261,
+                    lng: -33.134766
+                }
+            });
+        }
+    </script>
     <script
         src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <!-- paste api key in the url below -->
