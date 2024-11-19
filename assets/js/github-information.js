@@ -1,3 +1,20 @@
+function userInformationHTML(user) {
+    return `
+    <h2>${user.name}
+        <span class="small-name">
+            (@<a href="${user.html_url}" target="_blank">${user.login}</a>)
+        </span>
+    </h2>
+    <div class="gh-content"
+        <div class="gh-avatar">
+            <a href="${user.html_url}" target="_blank">
+            <img src="${user.avatar_url}" width="80" height="80" alt="${user.login}" />
+            </a>
+        </div>
+        <p>Followers: ${user.followers} - Following ${user.following} <br> Repos: ${user.public_repos}</p>
+    </div>`;
+}
+
 // define the fetchGitHubInformation() with an 'event' argument
 function fetchGitHubInformation(event) {
     // define a username variable that selects the username typed in the text field
@@ -16,19 +33,19 @@ function fetchGitHubInformation(event) {
 
     // create a promise
     // when this username is requested...
-    $when(
+    $.when(
         $.getJSON(`https://api.github.com/users/${username}`)
     ).then(
-        // run this function to display the GitHub response
-        function(response) {
+        // then run this function to display the GitHub response
+        function (response) {
             var userData = response;
             $("#gh-user-data").html(userInformationHTML(userData));
             // in case of 400 error run this function
-        }, function(errorResponse) {
+        }, function (errorResponse) {
             if (errorResponse.status === 400) {
                 $("#gh-user-data").html(
                     `<h2>User ${username} not found</h2>`);
-            // if not 400 error, display JSON error message in the console
+                // if not 400 error, display JSON error message in the console
             } else {
                 console.log(errorResponse);
                 $("#gh-user-data").html(
