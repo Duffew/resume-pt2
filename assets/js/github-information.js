@@ -41,6 +41,10 @@ function repoInformationHTML(repos) {
 
 // define the fetchGitHubInformation() with an 'event' argument
 function fetchGitHubInformation(event) {
+    // select the divs and set the HTML content to an empty string
+    $("gh-user-data").html("");
+    $("gh-repo-data").html("");
+
     // define a username variable that selects the username typed in the text field
     var username = $("#gh-username").val();
     // define what happens if a username is not entered
