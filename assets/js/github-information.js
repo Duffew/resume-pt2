@@ -34,12 +34,18 @@ function fetchGitHubInformation(event) {
     // create a promise
     // when this username is requested...
     $.when(
-        $.getJSON(`https://api.github.com/users/${username}`)
+        $.getJSON(`https://api.github.com/users/${username}`),
+        // add a new getJSON() method call to request repo data
+        $.getJSON(`https://api.github.com/users/${username}/repos`)
     ).then(
-        // then run this function to display the GitHub response
-        function (response) {
-            var userData = response;
+        // then run this function to display the GitHub response(s)
+        // when we now make two calls, the reponses are sorted into arrays and each
+        // response is the first element in those arrays
+        function (fisrtResponse, secondResponse) {
+            var userData = fisrtResponse[0];
+            var repoData = secondResponse[0];
             $("#gh-user-data").html(userInformationHTML(userData));
+            $("#gh-repo-data").html(repoInformationHTML(repoData));
             // in case of 400 error run this function
         }, function (errorResponse) {
             if (errorResponse.status === 400) {
