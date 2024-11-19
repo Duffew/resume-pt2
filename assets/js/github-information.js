@@ -15,6 +15,30 @@ function userInformationHTML(user) {
     </div>`;
 }
 
+// define a function to display the returned data from the new getJSON() method call on the repo data
+function repoInformationHTML(repos) {
+    // if there are no repos, display...
+    if (repos.length == 0) {
+        return `<div class="clearfix repo-list">No repos!</div>`
+    }
+    // define a varibale that takes the results of the map() method that will run against the reos array
+    var listItemsHTML = repos.map(function(repo) {
+        // return a list of repos found at the url
+        return `<li>
+                    <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                </li>`
+    });
+
+    return `<div class="clearfix repo-list">
+        <p>
+            <strong>Repo List:</strong>
+        </p>
+        <ul>
+            ${listItemsHTML.join("\n")}
+        </ul>
+    </div>`;
+}
+
 // define the fetchGitHubInformation() with an 'event' argument
 function fetchGitHubInformation(event) {
     // define a username variable that selects the username typed in the text field
